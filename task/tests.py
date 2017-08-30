@@ -39,4 +39,3 @@ class TaskTest(TestCase):
         
         # then
         self.assertTrue(Task.objects.filter(description="Afeitar al perro").exists())
-        self.assertTrue(False)

@@ -27,7 +27,7 @@ SECRET_KEY = 't$lxqy6hlp^e@o637fp8+id%15f+xxw_1#6ls-#vfupuw8nj+o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'tasklist-sleiva.c9users.io', 'pure-basin-68435.herokuapp.com']
+ALLOWED_HOSTS = [u'tasklist-sleiva.c9users.io', 'agila2.herokuapp.com']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
