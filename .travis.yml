@@ -1,5 +1,12 @@
 language: python
 python:
-  - "2.7"
-install: "pip install -r requirements.txt"
-script: "python manage.py test"
+- '2.7'
+install: pip install -r requirements.txt
+script: python manage.py test
+deploy:
+  provider: heroku
+  api_key:
+    secure: 4E8EzeP3quvdMAES5kxXTE9YILolg9svtMekgkXk5HMI2Efad0WvpiyWTpgW4xArZzEiZpIneau5oj9htyoNY1NZPd1GA/G6oeJ7GEk41tLwKwigIrvTapJxRlb0UcooP1qp9LJu+1EcvpBlj34KYDgcKAOQTItUrxZRuXLwLCllXlKC/0S39VFsHahS2hlAwAjqyLss8CmJIp+tmaiNIJ+F5lQ+uIPUqp2iPh+jb5zonPaXB/5XuTpB1EZq2jT8Gg2XZv22RWsYC6DbRpyMgRvZzPMf02RfxvgjMlD8hB6uEh8wHRyRBxv56qfM7r3sDnMPGBBRQVm6yxc0xkod7YfVqDEvdhd017JlrzQO91EDAKI2GTD2P5kCyo3gl4zVywnydbJYEo14LJtPaQofgDP6dQlBom5iEOUZmsUvJPQ5txgT855YbFw62jB7yFP0vUFdJS+ZHWyf2r6QW/xU/tQIeg0VYvmSjfKoUeD58KIk2ZIKvwr9pF+7SKkyTM+uBp3nAlOTY1mli+cGOBL5fzUfFqOcJ/AqTMoKvBLmj8ZNJeuSnGWCt1Sd+qgp+JU2XwMH7SE0PBI1A/KjeBzOvdvjlDRnEJFoTICS3hdsPOywZZ5ntughCEoHYYKWph7MWMPOnV+KreCIh7c5XCSn1bXvMtOLyqPJLTcYVFXh2Wg=
+  app: agila2
+  on:
+    repo: PabloReszczynski/todolist-cc6402
