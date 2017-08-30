@@ -27,7 +27,7 @@ class AllTasksView(TemplateView):
     
     def get_context_data(self, **kwargs):
         context = {}
-        context['tasks'] = [SingleTaskView()]
+        context['tasks'] = [SingleTaskView(task) for task in Task.objects.all()]
 
 
 class TaskView(TemplateView):
@@ -42,16 +42,16 @@ class TaskView(TemplateView):
         return context
 
     def post(self, request):
-        print(request.POST)
-        #description = request.POST.get("description")
-        #Task.objects.create(description=description)
+        description = request.POST.get("description")
+        Task.objects.create(description=description)
         return redirect("tasks")
 
 class DeleteTaskView(View):
     def post(self, request):
-        print "Queremos borrar esto"
-        print request
-        task = request.POST.get("task")
-        Task.objects.get(task).delete()
-        return redirect("tasks")
+        print request.POST
+        tasks = request.POST.getlist("tasks")
         
+        for t in tasks:
+            Task.objects.get(description=t).delete()
+        
+        return redirect("tasks")
