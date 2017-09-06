@@ -1,1 +1,2 @@
-web: gunicorn tasklist.wsgi --log-file -
+web: gunicorn ta.wsgi --log-file -
+release: python manage.py makemigrations && python manage.py migrate
