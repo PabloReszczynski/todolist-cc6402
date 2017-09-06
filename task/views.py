@@ -37,7 +37,7 @@ class TaskView(TemplateView):
         context = {}
         form = AddTaskForm()
         context["form"] = form
-        context["Tasks"] = Task.objects.all()
+        context["tasks"] = Task.objects.all()
         context["formTaskList"] = DeleteTaskForm()
         return context
 
@@ -49,9 +49,22 @@ class TaskView(TemplateView):
 class DeleteTaskView(View):
     def post(self, request):
         print request.POST
-        tasks = request.POST.getlist("tasks")
+        try:
+            task_id = request.POST.get("id")
+            task = Task.objects.get(id=task_id)
+            task.delete()
+        except:
+            pass
         
-        for t in tasks:
-            Task.objects.get(description=t).delete()
+        return redirect("tasks")
+        
+        
+class ToggleTaskView(View):
+    def post(self, request):
+        print "toggle?"
+        task_id = request.POST.get("id")
+        task = Task.objects.get(id=task_id)
+        task.done = not task.done
+        task.save()
         
         return redirect("tasks")

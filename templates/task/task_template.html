@@ -1,21 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Task List on heroku</title>
-</head>
-<body>
+{% extends 'task/base.html' %}
+{% block content %}
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Add Task">
     </form>
     
-    <form method="post" action="{% url "delete_task" %}">
-        {% csrf_token %}
-        {{ formTaskList }}
-        <input type="submit" value="Remove Task">
-    </form>
-    
-</body>
-</html>
+    <ul>
+        {% for task in tasks %}
+            <li id="{{task.id}}">{% include "task/task.html" %}</li>
+        {% endfor %}
+    </ul>
+    <script type="text/javascript">
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{csrf_token}}");
+                }
+            }
+        });
+        const deleteTask = (id) => {
+            $.ajax({
+                url: '{% url "delete_task" %}',
+                data: {id},
+                method: 'POST',
+                success: (pico) => {
+                    $(`#${id}`).remove();
+                }
+            });
+        };
+        
+        const toggleDone = id => {
+            $.ajax({
+                url: '{% url "toggle_task" %}',
+                data: {id},
+                method: 'POST',
+                success: (isDone) => {
+                    $(`#${id}.checkbox`).prop('checked', isDone);
+                }
+            });
+            
+        }
+        
+        const editTask = (id) => {
+            const p = window.getElementById(id);
+            let input = document.createElement('input');
+            input.type = text;
+            input.id = id;
+            p.appendChild(input);
+            let button = document.createElement('button');
+            button.onClick = () => {
+                let description = $(`input#${id}`).val();
+                $.ajax({
+                    url: '',
+                    task_id: id,
+                    method: 'POST',
+                    description
+                });
+            };
+            p.appendChild(button);
+            
+        }
+        
+    </script>
+ {% endblock %}

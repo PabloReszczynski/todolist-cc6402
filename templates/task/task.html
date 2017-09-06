@@ -1,57 +1,29 @@
-{% extends 'base.html' %}
 {% block content %}
-<div>
+<div class="task">
     <div class="description">
-        {{ description }}
+        {{ task.description }}
     </div>
     <div class="checkbox">
         <form>
-            {% if {{ done }} %}
-            <input type="checkbox" name="" checked/>
+            {% if task.done %}
+            <input type="checkbox" name="" onclick="toggleDone({{task.id}})" checked/>
             {% else %}
-            <input type="checkbox" name=""/>
+            <input type="checkbox" name="" onclick="toggleDone({{task.id}})"/>
             {% endif %}
-            <input type="submit" value="Submit"/>
         </form>
     </div>
     <div class="delete-button">
-        <button onclick="deleteTask({{ id }})">
-        x</button>
+        <button onclick="deleteTask({{ task.id }})">
+            Delete
+        </button>
     </div>
+    <!-- 
     <div class="edit-button">
         <button onclick="editTask()">
         Edit</button>
-    </div>
-    
-    <script type="text/javascript">
-        const deleteTask = (id) => {
-            $.ajax({
-                url: '/deleteTask',
-                task_id: id,
-                method: 'POST'
-            });
-        };
-        
-        const editTask = (id) => {
-            const p = window.getElementById(id);
-            let input = document.createElement('input');
-            input.type = text;
-            input.id = id;
-            p.appendChild(input);
-            let button = document.createElement('button');
-            button.onClick = () => {
-                let description = $(`input#${id}`).val();
-                $.ajax({
-                    url: '/editTask',
-                    task_id: id,
-                    method: 'POST',
-                    description
-                });
-            };
-            p.appendChild(button);
-            
-        }
-    </script>
+    </div> 
+    -->
+
     
 </div>
 {% endblock %}
